@@ -1,6 +1,8 @@
 import LoginRegister from './pages/LoginRegister.js';
 import ForgotPassword from './pages/ForgotPassword.js';
-import Register from './pages/Register.js';
+import RegisterRole from './pages/RegisterRole.js';
+import RegisterCustomer from './pages/RegisterCustomer.js';
+import RegisterRestaurant from './pages/RegisterRestaurant.js';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -10,7 +12,9 @@ function App() {
       <Routes>
         <Route path = "/" element = {<LoginRegister />} />
         <Route path = "/ForgotPassword" element = {<ForgotPassword />} />
-        <Route path = "/Register" element = {<Register />} />
+        <Route path = "/RegisterCustomer" element = {<RegisterCustomer />} />
+        <Route path = "/RegisterRole" element = {<RegisterRole />} />\
+        <Route path = "/RegisterRestaurant" element = {<RegisterRestaurant />}/>
       </Routes>
     </BrowserRouter>
   );

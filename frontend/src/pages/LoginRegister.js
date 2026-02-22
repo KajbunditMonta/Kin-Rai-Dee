@@ -52,14 +52,14 @@ function LoginRegister () {
 
             <div className = 'pt-5'>
                 <Link className = "underline" to = "/ForgotPassword">
-                    Forgot Password?
+                    ลืมรหัสผ่าน?
                 </Link>
             </div>
 
             <div className = 'pt-10 flex lex-row'>
-                <p>Not a member?</p>
-                <Link className = 'underline pl-2' to = "/Register">
-                    click here
+                <p>ไม่มีสมาชิก?</p>
+                <Link className = 'underline pl-2' to = "/RegisterRole">
+                    สมัครสามาชิกที่นี่
                 </Link>
             </div>
 
