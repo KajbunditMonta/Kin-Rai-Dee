@@ -1,6 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import Customer from '../models/Customer.js';
+import Restaurant from '../models/Restaurant.js';
 
 const router = express.Router();
 
@@ -13,9 +14,18 @@ router.post('/RegisterCustomer', async (req, res) => {
         if (emailExists) {
             return res.status(400).json({message : "ไม่สามารถใช้อีเมลนี้ได้"})
         }
+        const emailExists2 = await Restaurant.findOne({ email });
+        if (emailExists2) {
+            return res.status(400).json({message : "ไม่สามารถใช้อีเมลนี้ได้"})
+        }
+        
 
         const userExists = await Customer.findOne({ username });
         if (userExists) {
+            return res.status(400).json({message : "ไม่สามารถใช้ชื่อผู้ใช้นี้ได้"})
+        }
+        const userExists2 = await Restaurant.findOne({ username });
+        if (userExists2) {
             return res.status(400).json({message : "ไม่สามารถใช้ชื่อผู้ใช้นี้ได้"})
         }
 

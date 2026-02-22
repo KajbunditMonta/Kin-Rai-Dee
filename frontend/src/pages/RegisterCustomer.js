@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from 'axios';
 
-function Register () {
+function RegisterCustomer () {
 
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -13,6 +13,16 @@ function Register () {
 
     const handlePegister = async () => {
 
+        if (!username || !email || !password) {
+            alert("กรุณากรอกข้อมูลให้ครบถ้วนทุกช่อง");
+            return;
+        }
+
+        if (password.length < 8) {
+            alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+            return;
+        }
+
         if (password !== confirmPassword) {
             alert("รหัสผ่านไม่ตรงกัน");
             return;
@@ -20,7 +30,7 @@ function Register () {
 
         try {
 
-            const response = await axios.post("http://localhost:5000/api/Authentication/RegisterCustomer", {
+            const response = await axios.post("http://localhost:5000/api/CustomerAuth/RegisterCustomer", {
                 username,
                 email,
                 password
@@ -123,4 +133,4 @@ function Register () {
     )
 }
 
-export default Register;
+export default RegisterCustomer;

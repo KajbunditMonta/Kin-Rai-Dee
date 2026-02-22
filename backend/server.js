@@ -2,7 +2,8 @@ import dotenv from 'dotenv'
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import Authentication from './routes/Authentication.js';
+import CustomerAuth from './routes/CustomerAuth.js';
+import RestaurantAuth from './routes/RestaurantAuth.js';
 
 import { setServers } from "node:dns/promises";
 setServers(["1.1.1.1", "8.8.8.8"]);
@@ -15,7 +16,8 @@ const mongo_uri = process.env.MONGO_URI;
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/Authentication', Authentication);
+app.use('/api/CustomerAuth', CustomerAuth);
+app.use('/api/RestuarantAuth', RestaurantAuth);
 
 mongoose.connect(mongo_uri)
     .then( () => console.log("MongoDB Connected..."))
