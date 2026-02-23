@@ -15,7 +15,7 @@ function ForgotPassword () {
                 </h1>
             </div>
             <div className = "pt-10 w-64 flex flex-col">
-                <label className = "text-center mb-2">
+                <label className = "text-left mb-2">
                     กรุณาใส่อีเมล
                 </label>
         
