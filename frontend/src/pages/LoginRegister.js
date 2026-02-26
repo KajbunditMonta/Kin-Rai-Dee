@@ -26,7 +26,7 @@ function LoginRegister () {
         if (role === 'customer') {
             api_url = "http://localhost:5000/api/CustomerAuth/LoginCustomer";
         } else {
-               
+            api_url = "http://localhost:5000/api/RestuarantAuth/LoginRestaurant";
         }
 
         try {
@@ -42,6 +42,8 @@ function LoginRegister () {
 
             if (role === 'customer') {
                 navigate("/HomeCustomer");
+            } else {
+                navigate("/HomeRestaurant");
             }
 
         } catch (err) {

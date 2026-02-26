@@ -49,17 +49,17 @@ router.post('/RegisterCustomer', async (req, res) => {
 router.post('/LoginCustomer', async (req, res) => {
 
     try {
+
         const {username, password} = req.body;
 
         const user = await Customer.findOne({ username });
         if (!user) {
-            return res.status(400).json({ message: "ไม่พบชื่อผู้ใช้ในระบบ"});
+            return res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"});
         }
 
         const isMath = await bcrypt.compare(password, user.password);
-
         if (!isMath) {
-            return res.status(400).json({ message: "รหัสผ่านไม่ถูกต้อง" })
+            return res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" })
         }
 
         res.status(200).json({
@@ -70,6 +70,7 @@ router.post('/LoginCustomer', async (req, res) => {
                 types: user.type
             }
         });
+
     } catch (err) {
         res.status(500).json({ message: "Backend Error : " + err.message});
     }
