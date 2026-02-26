@@ -45,4 +45,35 @@ router.post('/RegisterRestaurant', async (req, res) => {
     }
 })
 
+router.post('/LoginRestaurant', async (req, res) => {
+
+    try {
+
+        const { username, password } = req.body;
+
+        const user = await Restaurant.findOne({ username });
+        if (!user) {
+            res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" })
+        }
+
+        const isMath = bcrypt.compare(password, user.password);
+        if (!isMath) {
+            return res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" })
+        }
+
+        res.status(200).json({
+            message : "เข้าสู่ระบบสำเร็จ",
+            user : {
+                username : user.username,
+                email : user.email,
+                type : user.type
+            }
+        })
+
+    } catch (err) {
+        res.status(500).json({ message: "Backend Error : " + err.message})
+    }
+
+})
+
 export default router;

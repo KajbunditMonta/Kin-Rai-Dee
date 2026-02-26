@@ -46,4 +46,35 @@ router.post('/RegisterCustomer', async (req, res) => {
     }
 })
 
+router.post('/LoginCustomer', async (req, res) => {
+
+    try {
+
+        const {username, password} = req.body;
+
+        const user = await Customer.findOne({ username });
+        if (!user) {
+            return res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"});
+        }
+
+        const isMath = await bcrypt.compare(password, user.password);
+        if (!isMath) {
+            return res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" })
+        }
+
+        res.status(200).json({
+            message: "เข้าสู่ระบบสำเร็จ",
+            user : {
+                username: user.username,
+                email: user.email,
+                types: user.type
+            }
+        });
+
+    } catch (err) {
+        res.status(500).json({ message: "Backend Error : " + err.message});
+    }
+
+})
+
 export default router;
