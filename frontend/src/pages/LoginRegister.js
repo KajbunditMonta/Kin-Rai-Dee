@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function LoginRegister () {
 
-    const [ isShow, setShow ] = useState(false);
+    const [isShow, setShow] = useState(false);
     const [role, setRole] = useState("");
 
     const [username, setUsername] = useState("");
@@ -19,6 +19,13 @@ function LoginRegister () {
 
         if (username === "" || password === "") {
             return alert("กรุณากรอกข้อมูลให้ครบถ้วน")
+        }
+
+        if (username === "testFromS25" && password === "testFromS25" && role === "restaurant") { // DONT FORGET TO DELETE AFTER TEST
+            navigate("/HomeRestaurant");
+        }
+        if (username === "testFromS25" && password === "testFromS25" && role === "customer") { // DONT FORGET TO DELETE AFTER TEST
+            navigate("/HomeCustomer");
         }
 
         let api_url;
@@ -64,7 +71,6 @@ function LoginRegister () {
 
             <div className = 'size-28'>
                 <img
-                    className = ''
                     src = {forkAndSpoon}
                     alt = "User Profile"
                 />
@@ -99,12 +105,12 @@ function LoginRegister () {
                 </div>
 
                 <div className = 'pt-6'>
-                <input className = "bg-gray-400 min-w-80 min-h-11 rounded-lg text-center placeholder:text-gray-600 placeholder:text-center" 
-                    type = 'text'
-                    placeholder = 'Username'
-                    value = {username}
-                    onChange = {(e) => setUsername(e.target.value)}
-                />
+                    <input className = "bg-gray-400 min-w-80 min-h-11 rounded-lg text-center placeholder:text-gray-600 placeholder:text-center" 
+                        type = 'text'
+                        placeholder = 'Username'
+                        value = {username}
+                        onChange = {(e) => setUsername(e.target.value)}
+                    />
                 </div>
 
                 <div className = 'pt-5'>
