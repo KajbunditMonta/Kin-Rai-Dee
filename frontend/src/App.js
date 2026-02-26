@@ -4,6 +4,7 @@ import NewPassword from './pages/NewPassword.js';
 import RegisterRole from './pages/RegisterRole.js';
 import RegisterCustomer from './pages/RegisterCustomer.js';
 import RegisterRestaurant from './pages/RegisterRestaurant.js';
+import HomeCustomer from './pages/HomeCustomer.js';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ function App() {
         <Route path = "/RegisterCustomer" element = {<RegisterCustomer />} />
         <Route path = "/RegisterRole" element = {<RegisterRole />} />\
         <Route path = "/RegisterRestaurant" element = {<RegisterRestaurant />}/>
+        <Route path = "/HomeCustomer" element = {<HomeCustomer/>}/>
       </Routes>
     </BrowserRouter>
   );
