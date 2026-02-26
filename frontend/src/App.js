@@ -2,10 +2,12 @@ import LoginRegister from './pages/LoginRegister.js';
 import ForgotPassword from './pages/ForgotPassword.js';
 import NewPassword from './pages/NewPassword.js';
 import RegisterRole from './pages/RegisterRole.js';
-import RegisterCustomer from './pages/RegisterCustomer.js';
-import RegisterRestaurant from './pages/RegisterRestaurant.js';
-import HomeCustomer from './pages/HomeCustomer.js';
-import HomeRestaurant from './pages/HomeRestaurant.js';
+import RegisterCustomer from './pages/customer/RegisterCustomer.js';
+import RegisterRestaurant from './pages/restaurant/RegisterRestaurant.js';
+import HomeCustomer from './pages/customer/HomeCustomer.js';
+import HomeRestaurant from './pages/restaurant/HomeRestaurant.js';
+import MenuManagement from './pages/restaurant/MenuManagement.js';
+import AddMenu from './pages/restaurant/AddMenu.js';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -21,6 +23,8 @@ function App() {
         <Route path = "/RegisterRestaurant" element = {<RegisterRestaurant />}/>
         <Route path = "/HomeCustomer" element = {<HomeCustomer/>}/>
         <Route path = "/HomeRestaurant" element = {<HomeRestaurant/>}/>
+        <Route path = "/MenuManagement" element = {<MenuManagement/>}/>
+        <Route path = "/AddMenu" element = {<AddMenu/>}/>
       </Routes>
     </BrowserRouter>
   );
