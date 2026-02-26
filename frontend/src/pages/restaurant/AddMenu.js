@@ -1,4 +1,5 @@
 import backImg from '../../src/back.jpg';
+import axios from 'axios';
 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -26,14 +27,35 @@ function AddMenu () {
         }
     };
 
-    const saveHandle = () => {
+    const saveHandle = async () => {
 
         if (menu === "" || desc === "" || price === "" || img === null) {
             alert("โปรดอัพโหลดภาพหรือกรอกข้อมูลให้ครบ")
         }
         
+        const userData = JSON.parse(localStorage.getItem('user'));
+        const username = userData.username;
+
+        const formData = new FormData();
+        formData.append("name", menu);
+        formData.append("desc", desc);
+        formData.append("price", price);
+        formData.append("username", username);
+        formData.append("image", img);
+
+        try {
+
+            const response = await axios.post("http://localhost:5000/api/RestuarantAuth/AddMenu", formData, {
+                headers : { "Content-Type" : "multipart/from-data"}
+            });
+            alert(response.data.message);
+            navigate('/HomeRestaurant');
+
+        } catch (err) {
+            alert(err.response?.data?.message || "บันทึกไม่สำเร็จ")
+        }
+
     }
-    
 
     return (
         <div className = "min-h-screen flex flex-col bg-gray-100">

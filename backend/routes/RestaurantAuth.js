@@ -1,11 +1,15 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
+import multer from 'multer';
+import path from 'path';
+
 import Restaurant from '../models/Restaurant.js';
 import Customer from '../models/Customer.js';
+import Menu from '../models/Menu.js';
 
 const router = express.Router();
 
-router.post('/RegisterRestaurant', async (req, res) => {
+router.post ('/RegisterRestaurant', async (req, res) => {
     try {
 
         const { username, email, password} = req.body;
@@ -45,7 +49,7 @@ router.post('/RegisterRestaurant', async (req, res) => {
     }
 })
 
-router.post('/LoginRestaurant', async (req, res) => {
+router.post ('/LoginRestaurant', async (req, res) => {
 
     try {
 
@@ -56,8 +60,8 @@ router.post('/LoginRestaurant', async (req, res) => {
             res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" })
         }
 
-        const isMath = bcrypt.compare(password, user.password);
-        if (!isMath) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" })
         }
 
@@ -71,7 +75,46 @@ router.post('/LoginRestaurant', async (req, res) => {
         })
 
     } catch (err) {
-        res.status(500).json({ message: "Backend Error : " + err.message})
+        res.status(500).json({ message: "Backend Error : " + err.message })
+    }
+
+})
+
+// for Image file
+
+const storage = multer.diskStorage({
+    destination : (req, file, cb) => {
+        cb(null, "uploads/");
+    },
+    filename : (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
+});
+const upload = multer({ storage : storage});
+
+router.post ('/AddMenu', upload.single('image'), async (req, res) => {
+
+    try {
+
+        const { name, desc, price, username } = req.body;
+
+        if (!req.file) {
+            return res.status(400).json({ message : "กรุณาอัพโหลดรูปภาพ" });
+        }
+
+        const newMenu = new Menu({
+            name,
+            desc,
+            price,
+            image : `/uploads/${req.file.filename}`,
+            username
+        });
+
+        await newMenu.save();
+        res.status(201).json({ message : "บันทึกข้อมูลสำเร็จ", menu : newMenu })
+
+    } catch (err) {
+        res.status(500).json({ message: "Backend Error : " + err.message })
     }
 
 })
