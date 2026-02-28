@@ -1,6 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
 import Customer from '../models/Customer.js';
 import Restaurant from '../models/Restaurant.js';
 
@@ -91,8 +91,32 @@ router.post('/forgotpassword', async (req, res) => {
         user.resetPasswordToken = resetnumber;
         user.resetPasswordExpired = Date.now() + 5 * 60 * 1000;
         await user.save();
-        
-        res.status(200).json({message: "สามารถเช็คขอรหัสรีเซ็คได้ทางแอดมิน"});
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
+        });
+
+        await transporter.sendMail({
+            from: {
+                name: "Kin Rai Dee",
+                address: process.env.EMAIL_USER
+            },
+            to: email,
+            subject: 'รหัสรีเซ็ตรหัสผ่านจาก Kin Rai Dee',
+            html: `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2>แจ้งเตือนรหัสรีเซ็ตรหัสผ่าน</h2>
+                    <p>คุณได้ทำการร้องขอเพื่อเปลี่ยนรหัสผ่าน</p>
+                    <p>รหัสรีเซ็ตรหัสผ่านของคุณคือ:</p>
+                    <h1 style="color: #e74c3c; letter-spacing: 5px;">${resetnumber}</h1>
+                    <p>รหัสนี้จะหมดอายุใน <strong>5 นาที</strong></p>
+                </div>
+            `
+        });
+        return res.status(200).json({ message: "ส่งรหัสรีเซ็ตไปยังอีเมลเรียบร้อยแล้ว" });
     } catch (err) {
         res.status(500).json({message: err.message});
     }
