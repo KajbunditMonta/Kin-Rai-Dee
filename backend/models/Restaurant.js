@@ -5,7 +5,9 @@ const restaurantSchema = mongoose.Schema({
     email : { type : String, required: [true, 'Please Enter Email'], unique: true},
     password : { type : String, required: [true, 'Please Enter Password'] },
     type : {type : String, default : "restaurant"},
-    createAt : {type : Date, default : Date.now}
+    createdAt : {type : Date, default : Date.now},
+    resetPasswordToken: String,
+    resetPasswordExpired: Date
 });
 
 export default mongoose.model('Restaurant', restaurantSchema);

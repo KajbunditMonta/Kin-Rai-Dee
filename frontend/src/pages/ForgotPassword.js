@@ -1,11 +1,20 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function ForgotPassword () {
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
 
-    const newpasswordOnclick = () => {
-        navigate('/Newpassword');
+    const newpasswordOnclick = async () => {
+        try {
+            const response = await axios.post("http://localhost:5000/api/CustomerAuth/forgotpassword", {email});
+            alert(response.data.message);
+            navigate('/Newpassword', {state: { email: email}});
+        } catch (err) {
+            alert(err.response?.data?.message || "เกิดข้อผิดพลาด");
+        }
     }
     return (
         <div className = "h-screen flex flex-col items-center bg-gray-100">
@@ -21,6 +30,8 @@ function ForgotPassword () {
         
                 <input className = "rounded-md border-2 min-h-10 w-full text-center px-2"
                     placeholder = "Email address"
+                    value = {email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
             </div>
 

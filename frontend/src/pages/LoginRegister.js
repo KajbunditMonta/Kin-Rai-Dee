@@ -33,7 +33,7 @@ function LoginRegister () {
         if (role === 'customer') {
             api_url = "http://localhost:5000/api/CustomerAuth/LoginCustomer";
         } else {
-            api_url = "http://localhost:5000/api/RestuarantAuth/LoginRestaurant";
+            api_url = "http://localhost:5000/api/RestaurantAuth/LoginRestaurant";
         }
 
         try {

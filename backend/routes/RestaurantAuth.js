@@ -57,7 +57,7 @@ router.post ('/LoginRestaurant', async (req, res) => {
 
         const user = await Restaurant.findOne({ username });
         if (!user) {
-            res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" })
+            return res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" })
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -80,7 +80,6 @@ router.post ('/LoginRestaurant', async (req, res) => {
 
 })
 
-// for Image file
 
 const storage = multer.diskStorage({
     destination : (req, file, cb) => {

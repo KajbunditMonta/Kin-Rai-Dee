@@ -1,5 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 import Customer from '../models/Customer.js';
 import Restaurant from '../models/Restaurant.js';
 
@@ -57,8 +58,8 @@ router.post('/LoginCustomer', async (req, res) => {
             return res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง"});
         }
 
-        const isMath = await bcrypt.compare(password, user.password);
-        if (!isMath) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return res.status(400).json({ message: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง" })
         }
 
@@ -75,6 +76,49 @@ router.post('/LoginCustomer', async (req, res) => {
         res.status(500).json({ message: "Backend Error : " + err.message});
     }
 
+})
+
+router.post('/forgotpassword', async (req, res) => {
+    try {
+        const {email} = req.body;
+        const customer = await Customer.findOne({email});
+        const restaurant = await Restaurant.findOne({email});
+        const user = customer || restaurant;
+        if (!user) {
+            return res.status(404).json({message: "ไม่มีอีเมลนี้ในระบบ"});
+        }
+        const resetnumber = Math.floor(100000 + Math.random() * 900000).toString();
+        user.resetPasswordToken = resetnumber;
+        user.resetPasswordExpired = Date.now() + 5 * 60 * 1000;
+        await user.save();
+        
+        res.status(200).json({message: "สามารถเช็คขอรหัสรีเซ็คได้ทางแอดมิน"});
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
+})
+
+router.post('/resetpassword', async (req, res) => {
+    try {
+        const {email, resetnumber, newpassword} = req.body;
+        const customer = await Customer.findOne({email});
+        const restaurant = await Restaurant.findOne({email});
+        const user = customer || restaurant;
+        if (!user) {
+            return res.status(404).json({message: "ไม่มีอีเมลนี้ในระบบ"});
+        }
+        if (user.resetPasswordToken !== resetnumber || user.resetPasswordExpired < Date.now()) {
+            return res.status(400).json({message: "รหัสไม่ถูกต้องหรือหมดเวลาแล้ว"});
+        }
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newpassword, salt);
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpired = undefined;
+        await user.save();
+        res.status(200).json({message: "เปลี่ยนรหัสผ่านสำเร็จ"});
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
 })
 
 export default router;

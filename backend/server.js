@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/api/CustomerAuth', CustomerAuth);
-app.use('/api/RestuarantAuth', RestaurantAuth);
+app.use('/api/RestaurantAuth', RestaurantAuth);
 
 mongoose.connect(mongo_uri)
     .then( () => console.log("MongoDB Connected..."))
