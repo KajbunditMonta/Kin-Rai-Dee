@@ -20,7 +20,7 @@ function NewPassword () {
     const Submit = async () => {
         if (newpassword !== confirmpassword) return alert("รหัสผ่านไม่ตรงกัน");
         try {
-            const response = await axios.post("http://localhost:5000/api/CustomerAuth/resetpassword", {
+            const response = await axios.post("http://localhost:5000/api/ResetPassword/resetpassword", {
                 email: email,
                 resetnumber: resetnumber,
                 newpassword: newpassword
@@ -39,7 +39,7 @@ function NewPassword () {
                 </h1>
             </div>
             <div className="pt-5 w-64 flex flex-col">
-                <label className="text-left mb-2 font-bold text-blue-600">รหัสรีเซ้ต</label>
+                <label className="text-left mb-2 font-bold text-blue-600">รหัสรีเซ็ต</label>
                 <input 
                     className="rounded-md border-2 border-blue-300 min-h-10 w-full text-center px-2 text-xl tracking-widest"
                     placeholder="XXXXXX"

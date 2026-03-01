@@ -9,7 +9,7 @@ function ForgotPassword () {
 
     const newpasswordOnclick = async () => {
         try {
-            const response = await axios.post("http://localhost:5000/api/CustomerAuth/forgotpassword", {email});
+            const response = await axios.post("http://localhost:5000/api/ResetPassword/forgotpassword", {email});
             alert(response.data.message);
             navigate('/Newpassword', {state: { email: email}});
         } catch (err) {

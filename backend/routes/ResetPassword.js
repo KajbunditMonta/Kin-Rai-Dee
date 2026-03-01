@@ -1,0 +1,76 @@
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import nodemailer from 'nodemailer';
+import Customer from '../models/Customer.js';
+import Restaurant from '../models/Restaurant.js';
+
+const router = express.Router();
+
+router.post('/forgotpassword', async (req, res) => {
+    try {
+        const {email} = req.body;
+        const customer = await Customer.findOne({email});
+        const restaurant = await Restaurant.findOne({email});
+        const user = customer || restaurant;
+        if (!user) {
+            return res.status(404).json({message: "ไม่มีอีเมลนี้ในระบบ"});
+        }
+        const resetnumber = Math.floor(100000 + Math.random() * 900000).toString();
+        user.resetPasswordToken = resetnumber;
+        user.resetPasswordExpired = Date.now() + 5 * 60 * 1000;
+        await user.save();
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS
+            }
+        });
+
+        await transporter.sendMail({
+            from: {
+                name: "Kin Rai Dee",
+                address: process.env.EMAIL_USER
+            },
+            to: email,
+            subject: 'รหัสรีเซ็ตรหัสผ่านจาก Kin Rai Dee',
+            html: `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2>แจ้งเตือนรหัสรีเซ็ตรหัสผ่าน</h2>
+                    <p>คุณได้ทำการร้องขอเพื่อเปลี่ยนรหัสผ่าน</p>
+                    <p>รหัสรีเซ็ตรหัสผ่านของคุณคือ:</p>
+                    <h1 style="color: #e74c3c; letter-spacing: 5px;">${resetnumber}</h1>
+                    <p>รหัสนี้จะหมดอายุใน <strong>5 นาที</strong></p>
+                </div>
+            `
+        });
+        return res.status(200).json({ message: "ส่งรหัสรีเซ็ตไปยังอีเมลเรียบร้อยแล้ว" });
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
+})
+
+router.post('/resetpassword', async (req, res) => {
+    try {
+        const {email, resetnumber, newpassword} = req.body;
+        const customer = await Customer.findOne({email});
+        const restaurant = await Restaurant.findOne({email});
+        const user = customer || restaurant;
+        if (!user) {
+            return res.status(404).json({message: "ไม่มีอีเมลนี้ในระบบ"});
+        }
+        if (user.resetPasswordToken !== resetnumber || user.resetPasswordExpired < Date.now()) {
+            return res.status(400).json({message: "รหัสไม่ถูกต้องหรือหมดเวลาแล้ว"});
+        }
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newpassword, salt);
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpired = undefined;
+        await user.save();
+        res.status(200).json({message: "เปลี่ยนรหัสผ่านสำเร็จ"});
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
+})
+
+export default router;
