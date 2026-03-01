@@ -2,7 +2,6 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import multer from 'multer';
 import path from 'path';
-
 import Restaurant from '../models/Restaurant.js';
 import Customer from '../models/Customer.js';
 import Menu from '../models/Menu.js';
@@ -179,6 +178,49 @@ router.put('/UpdateMenu/:id', upload.single('image'), async (req, res) => {
 
 });
 
+router.get('/getAll', async (req, res) => {
+    try {
+        const restaurant = await Restaurant.find({});
+        res.status(200).json(restaurant);
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
+})
 
+router.post('/uploadRestaurantImage', upload.single('image'), async (req, res) => {
+    try {
+        const { username } = req.body;
+        if (!req.file) {
+            return res.status(400).json({ message: "กรุณาอัปโหลดรูปภาพ" });
+        }
+        const updated = await Restaurant.findOneAndUpdate(
+            { username },
+            { image: `/uploads/${req.file.filename}` },
+            { new: true }
+        );
+        res.status(200).json({ message: "อัปโหลดสำเร็จ", image: updated.image });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+router.get('/getMenu/:id', async (req, res) => {
+    try {
+        const shopId = req.params.id;
+        const shop = await Restaurant.findById(shopId);
+        if (!shop) {
+            return res.status(404).json({ message: "ไม่พบร้านค้านี้" });
+        }
+        const menus = await Menu.find({ username: shop.username });
+        res.status(200).json({
+            shopData: shop, 
+            menuData: menus
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: err.message });
+    }
+});
 
 export default router;
