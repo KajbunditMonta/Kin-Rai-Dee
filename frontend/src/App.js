@@ -10,6 +10,7 @@ import MenuManagement from './pages/restaurant/MenuManagement.js';
 import AddMenu from './pages/restaurant/AddMenu.js';
 import OrderCustomer from './pages/customer/OrderCustomer.js';
 import RestaurantMenu from './pages/customer/RestaurantMenu.js';
+import EditMenu from './pages/restaurant/EditMenu.js';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -29,6 +30,7 @@ function App() {
         <Route path = "/AddMenu" element = {<AddMenu/>}/>
         <Route path = "/OrderCustomer" element = {<OrderCustomer/>}/>
         <Route path = "/RestaurantMenu/:id" element = {<RestaurantMenu/>}/>
+        <Route path = "/EditMenu" element = {<EditMenu />}/>
       </Routes>
     </BrowserRouter>
   );

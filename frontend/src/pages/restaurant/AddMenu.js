@@ -9,7 +9,7 @@ function AddMenu () {
     const navigate = useNavigate();
 
     const backHandle = () => {
-        navigate("/HomeRestaurant");
+        navigate("/MenuManagement");
     }
 
     const [menu, setMenu] = useState("");
@@ -49,7 +49,7 @@ function AddMenu () {
                 headers : { "Content-Type" : "multipart/from-data"}
             });
             alert(response.data.message);
-            navigate('/HomeRestaurant');
+            navigate('/MenuManagement');
 
         } catch (err) {
             alert(err.response?.data?.message || "บันทึกไม่สำเร็จ")
