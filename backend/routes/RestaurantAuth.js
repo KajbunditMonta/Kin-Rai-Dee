@@ -6,7 +6,6 @@ import path from 'path';
 import Restaurant from '../models/Restaurant.js';
 import Customer from '../models/Customer.js';
 import Menu from '../models/Menu.js';
-import { create } from 'domain';
 
 const router = express.Router();
 
@@ -119,19 +118,16 @@ router.post ('/AddMenu', upload.single('image'), async (req, res) => {
 
 });
 
-<<<<<<< Updated upstream
-=======
-router.get ('/Menus/:username', async (req, res) => {
+router.get('/Menus/:username', async (req, res) => {
 
     try {
         const { username } = req.params;
-        const myMenus = await Menu.find({ username : username}).sort({ createdAt : -1});
-        res.status(200).json(myMenus);
+        const menus = await Menu.find({ username : username}).sort({ createdAt : -1});
+        res.status(200).json(menus);
     } catch (err) {
-        res.status(500).json({ message : "Backend Error : " + err.message });
+        res.status(500).json({ message : "Backend Error : " + err.message});
     }
 
 });
 
->>>>>>> Stashed changes
 export default router;

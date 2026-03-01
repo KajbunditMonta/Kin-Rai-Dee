@@ -1,7 +1,7 @@
 import backImg from '../../src/back.jpg';
 
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 function MenuManagement () {
@@ -16,24 +16,30 @@ function MenuManagement () {
         navigate("/AddMenu");
     }
 
+    // show menu
+
     const [menus, setMenus] = useState([]);
+
+    // get from local storage
     const userData = JSON.parse(localStorage.getItem('user'));
     const username = userData?.username;
 
-    const fetchMenus = async () => {
-
+    const fetchMenus = useCallback( async () => {
+        
         try {
+
             const response = await axios.get(`http://localhost:5000/api/RestaurantAuth/Menus/${username}`);
             setMenus(response.data);
+
         } catch (err) {
-            console.error("Can not fetch menu Error : ", err);
+            console.error("Fetch error : ", err);
         }
 
-    }
+    }, [username]);
 
     useEffect( () => {
-        if (username) fetchMenus();
-    }, [username]);
+        if (username) fetchMenus(); 
+    }, [username, fetchMenus]);
 
     return (
         <div className = "min-h-screen flex flex-col bg-gray-100">
@@ -50,18 +56,39 @@ function MenuManagement () {
 
                 </div>
 
-                <h1 className = "font-bold text-center text-4xl">
+                <h1 className = "font-bold text-center text-4xl pb-5">
                     เมนู
                 </h1>
                 
             </div>
+
+            {/* Show list */}
+            { menus.map( (item) => (
+                <div className = 'bg-slate-300 rounded-xl m-5 h-32'>
+                    <div className = 'flex flex-row'>
+                        <div className = 'w-20 h-20 m-5'>
+                            <img className = 'rounded-xl w-20 h-20'
+                                src = {`http://localhost:5000${item.image}`}
+                                alt = {item.image}
+                            />
+                        </div>
+
+                        <div className = 'pt-5'>
+                            <h2 className = 'font-bold text-xl'>{item.name}</h2>
+                            <p>{item.desc}</p>
+                            <p className = 'text-green-600 font-bold'>{item.price} บาท</p>
+                        </div>
+                    </div>
+                </div>
+            ))}
             
-            <div className = 'pl-8'>
+
+            <div className = 'pl-8 pt-5'>
                 <button onClick = {addMenu} className = 'bg-blue-400 rounded-2xl w-20 h-10 text-white hover:bg-blue-600 active:scale-[0.98]'>
                     เพิ่มเมนู
                 </button>
             </div>
-            
+
             {/* Navbar */}
             <div className = 'fixed bottom-0 z-50 h-16 min-w-full bg-white'>
                 
