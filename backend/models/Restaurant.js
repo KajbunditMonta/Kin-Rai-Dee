@@ -6,6 +6,8 @@ const restaurantSchema = mongoose.Schema({
     password : { type : String, required: [true, 'Please Enter Password'] },
     type : {type : String, default : "restaurant"},
     createdAt : {type : Date, default : Date.now},
+    isOpen: { type: Boolean, default: false},
+    image: { type: String, default: "" },
     resetPasswordToken: String,
     resetPasswordExpired: Date
 });
