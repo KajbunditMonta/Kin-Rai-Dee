@@ -19,6 +19,7 @@ app.use(cors());
 
 app.use('/api/CustomerAuth', CustomerAuth);
 app.use('/api/RestaurantAuth', RestaurantAuth);
+app.use('/uploads', express.static('uploads'));
 app.use('/api/ResetPassword', ResetPassword);
 
 mongoose.connect(mongo_uri)
