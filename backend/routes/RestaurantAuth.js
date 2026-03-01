@@ -173,7 +173,7 @@ router.put('/UpdateMenu/:id', upload.single('image'), async (req, res) => {
 
         res.status(200).json({ message : "แก้ไขข้อมูลสำเร็จ", menu : UpdateMenu});
     } catch (err) {
-        res.status(500).json({ message : "Backend Error : " + err.message})
+        res.status(500).json({ message : "Backend Error : " + err.message});
     }
 
 });
@@ -222,5 +222,53 @@ router.get('/getMenu/:id', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+router.get('/getShop/:username', async (req, res) => {
+
+    try {
+
+        const { username } = req.params;
+
+        const shop = await Restaurant.findOne({ username : username});
+
+        if (!shop) {
+            return res.status(404).json({ message: "ไม่พบข้อมูลร้านค้า" });
+        }
+
+        res.status(200).json(shop);
+
+    } catch (err) {
+        res.status(500).json({ message : "Backend Error : " + err.message});
+    }
+
+});
+
+router.put('/setStatus/:username', async (req, res) => {
+
+    try{
+
+        const { username } = req.params;
+        const { isOpen } = req.body;
+
+        const updatedShop = await Restaurant.findOneAndUpdate(
+            { username : username },
+            { isOpen : isOpen },
+            { new : true }
+        );
+
+        if (!updatedShop) {
+            return res.status(404).json({ message: "ไม่พบข้อมูลร้านค้า" });
+        }
+
+        res.status(200).json({
+            message : "อัปเดตสถานะสำเร็จ",
+            isOpen : updatedShop
+        });
+
+    } catch (err) {
+        res.status(500).json({ message : "Backend Error : " + err.message});
+    }
+
+})
 
 export default router;

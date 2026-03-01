@@ -34,31 +34,34 @@ function EditMenu () {
 
     const updateHandle = async (e) => {
 
-        e.preventDefault();
+        if (window.confirm("ต้องการแก้ไขข้อมูลตามนี้ใช่หรือไม่")) {
 
-        const formData =  new FormData();
-        formData.append('name', name);
-        formData.append('desc', desc);
-        formData.append('price', price);
+            e.preventDefault();
 
-        if (img instanceof File) {
-            formData.append('image', img);
-        }
+            const formData =  new FormData();
+            formData.append('name', name);
+            formData.append('desc', desc);
+            formData.append('price', price);
 
-        try {
-
-            const res = await axios.put(`http://localhost:5000/api/RestaurantAuth/UpdateMenu/${menu._id}`, formData, { headers : { 'Content-Type' : 'multipart/form-data' }});
-
-            if (res.status === 200) {
-                alert("แก้ไขเมนูสำเร็จ!");
-                navigate('/MenuManagement');
+            if (img instanceof File) {
+                formData.append('image', img);
             }
 
-        } catch (err) {
-            console.error("Update error :", err);
-            alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
-        }
+            try {
 
+                const res = await axios.put(`http://localhost:5000/api/RestaurantAuth/UpdateMenu/${menu._id}`, formData, { headers : { 'Content-Type' : 'multipart/form-data' }});
+
+                if (res.status === 200) {
+                    alert("แก้ไขเมนูสำเร็จ!");
+                    navigate('/MenuManagement');
+                }
+
+            } catch (err) {
+                console.error("Update error :", err);
+                alert("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+            }
+
+        }
     }
 
     return (
