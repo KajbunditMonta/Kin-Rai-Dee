@@ -1,5 +1,4 @@
-import { ReactComponent as Logo } from '../src/Logo.svg';
-import forkAndSpoon from  '../src/ForkAndSpoon.png';
+import Logo from '../src/Logo.svg';
 
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -60,18 +59,17 @@ function LoginRegister () {
     }
 
     return (
-        <div className = "min-h-screen flex flex-col items-center bg-gray-100">
+        <div className = "min-h-screen flex flex-col items-center bg-gray-100 font-notoSans">
 
-            <div className = "flex items-center">
-                <h1 className = "text-5xl pl-8">
-                    kin rai 
+            <div className = "flex items-center pt-10">
+                <h1 className = "text-5xl font-notoSansBold">
+                    Kin Rai :D
                 </h1>
-                <Logo className = "size-28 pt-4"/>
             </div>
 
             <div className = 'size-28'>
                 <img
-                    src = {forkAndSpoon}
+                    src = {Logo}
                     alt = "User Profile"
                 />
             </div>
@@ -97,26 +95,25 @@ function LoginRegister () {
             {isShow && (
             <div className = 'flex flex-col items-center'>
                 
-                <div className = 'flex flex-row pt-6'>
-                    <p>คุณคือ</p> 
-                    {role === 'customer' && (<p className = 'pl-2 font-bold text-lg'>ลูกค้า</p>)}
-                    {role === 'restaurant' && (<p className = 'pl-2 font-bold text-lg'>ร้านค้า</p>)}
-                    <p className = 'pl-2'>?</p>
+                <div className = 'pt-6'>
+                    <span>คุณคือ</span> 
+                    {role === 'customer' && (<span className = 'pl-2 text-2xl text-blue-500 font-notoSansBold'>ลูกค้า</span>)}
+                    {role === 'restaurant' && (<span className = 'pl-2 text-2xl text-orange-500 font-notoSansBold'>ร้านค้า</span>)}
                 </div>
 
                 <div className = 'pt-6'>
-                    <input className = "bg-gray-400 min-w-80 min-h-11 rounded-lg text-center placeholder:text-gray-600 placeholder:text-center" 
+                    <input className = "bg-gray-300 min-w-80 min-h-11 rounded-lg text-center placeholder:text-gray-600 placeholder:text-center" 
                         type = 'text'
-                        placeholder = 'Username'
+                        placeholder = {`${role === 'customer' ? 'ชื่อผู้ใช้' : 'ชื่อร้าน'}`}
                         value = {username}
                         onChange = {(e) => setUsername(e.target.value)}
                     />
                 </div>
 
                 <div className = 'pt-5'>
-                    <input className = "bg-gray-400 min-w-80 min-h-11 rounded-lg text-center placeholder:text-gray-600 placeholder:text-center" 
+                    <input className = "bg-gray-300 min-w-80 min-h-11 rounded-lg text-center placeholder:text-gray-600 placeholder:text-center" 
                         type = 'password'
-                        placeholder = 'Password'
+                        placeholder = 'รหัสผ่าน'
                         value = {password}
                         onChange = {(e) => setPassword(e.target.value)}
                     />

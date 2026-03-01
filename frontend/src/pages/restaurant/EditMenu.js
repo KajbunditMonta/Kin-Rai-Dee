@@ -62,7 +62,7 @@ function EditMenu () {
     }
 
     return (
-        <div className = "min-h-screen flex flex-col bg-gray-100">
+        <div className = "min-h-screen flex flex-col bg-gray-100 font-notoSans">
             <div className = "flex flex-col pt-10">
                 
                 <div className = "pl-4">
@@ -77,8 +77,12 @@ function EditMenu () {
                 </div>
 
                 <h1 className = "font-bold text-center text-2xl pb-5 pt-5">
-                    แก้ไขเมนู: {menu?.name}
+                    แก้ไขเมนู:
                 </h1>
+                <div className = 'flex justify-center'>
+                    <span className = 'font-notoSansBold text-2xl text-orange-500'>{menu?.name}</span>
+                </div>
+                
 
                 <div className = 'flex flex-col items-center pt-5'>
 
@@ -100,9 +104,9 @@ function EditMenu () {
 
                 </div>
 
-                <p className = 'text-center pt-2 text-gray-400 underline'>คลิ๊กที่รูปเพื่ออัพโหลดรูปใหม่</p>
+                <p className = 'text-center pt-2 text-gray-400 underline text-sm'>คลิ๊กที่รูปเพื่ออัพโหลดรูปใหม่</p>
 
-                <div className = 'flex flex-col items-center pt-5'>
+                <div className = 'flex flex-col items-center pt-7'>
 
                     <p className = 'pb-2 font-bold'>
                         ชื่อเมนู
@@ -110,8 +114,7 @@ function EditMenu () {
 
                     <input
                         className = 'rounded-lg bg-gray-300 w-60 h-10 text-center'
-                        placeholder = 'ชื่อเมนู'
-                        defaultValue = {menu.name}
+                        placeholder = {menu.name}
                         onChange = { (e) => setName(e.target.value) }
                     />
                 </div>
@@ -124,8 +127,7 @@ function EditMenu () {
 
                     <input
                         className = 'rounded-lg bg-gray-300 w-60 h-10 text-center'
-                        placeholder = 'คำอธิบาย'
-                        defaultValue = {menu.desc}
+                        placeholder = {menu.desc}
                         onChange = { (e) => setDesc(e.target.value) }
                     />
                 </div>
@@ -139,8 +141,7 @@ function EditMenu () {
                     <input
                         className = 'rounded-lg bg-gray-300 w-60 h-10 text-center'
                         type = 'number'
-                        placeholder = 'ระบุราคา'
-                        defaultValue = {menu.price}
+                        placeholder = {menu.price}
                         onChange = { (e) => setPrice(e.target.value) }
                     />
                 </div>

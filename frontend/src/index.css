@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Noto-sans';
+    src: url('./src/font/NotoSansThai-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Noto-sans-bold';
+    src: url('./src/font/NotoSansThai-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
