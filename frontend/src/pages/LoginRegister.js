@@ -82,12 +82,12 @@ function LoginRegister () {
 
             <div className = "pt-4 flex flex-row">
                 <div className = 'pr-5'>
-                    <button onClick = { () => {setShow(true); setRole("customer")} } className = "bg-blue-500 rounded-lg min-h-20 min-w-20 hover:bg-blue-600 active:scale-[0.98] text-white text-lg">
+                    <button onClick = { () => {setShow(true); setRole("customer")} } className = "shadow-lg bg-blue-500 rounded-lg min-h-20 min-w-20 hover:bg-blue-600 active:scale-[0.98] text-white text-lg">
                         ลูกค้า
                     </button>
                 </div>
 
-                <button onClick = { () => {setShow(true); setRole("restaurant")} } className = "bg-orange-500 rounded-lg min-h-20 min-w-20 hover:bg-orange-600 active:scale-[0.98] text-white text-lg">
+                <button onClick = { () => {setShow(true); setRole("restaurant")} } className = "shadow-lg bg-orange-500 rounded-lg min-h-20 min-w-20 hover:bg-orange-600 active:scale-[0.98] text-white text-lg">
                     ร้านค้า
                 </button>
             </div>
@@ -120,7 +120,7 @@ function LoginRegister () {
                 </div>
 
                 <div className = 'pt-8'>
-                    <button onClick={loginHandle} className = ' bg-blue-400 text-white min-h-10 min-w-40 rounded-lg hover:bg-blue-700 active:bg-blue-800 active:scale-[0.98]'>
+                    <button onClick={loginHandle} className = {` ${role === 'customer' ? ' bg-blue-400 text-white min-h-10 min-w-40 rounded-lg hover:bg-blue-700 active:bg-blue-800 active:scale-[0.98]' : ' bg-orange-400 text-white min-h-10 min-w-40 rounded-lg hover:bg-orange-700 active:bg-orange-800 active:scale-[0.98]'} shadow-lg `}>
                         Login
                     </button>
                 </div>

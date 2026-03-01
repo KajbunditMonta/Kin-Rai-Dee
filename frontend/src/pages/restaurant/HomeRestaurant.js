@@ -70,7 +70,7 @@ function HomeRestaurant () {
 
             <div className = "h-8"></div>
 
-            <div className = "bg-blue-300 w-80 h-32 rounded-3xl">
+            <div className = "bg-blue-300 w-80 h-32 rounded-3xl shadow-2xl">
 
                 <div className = 'flex flex-row pt-6 pl-3'>
 
@@ -89,12 +89,6 @@ function HomeRestaurant () {
                                 บาท
                             </p>
                         </div>
-                    </div>
-
-                    <div className = 'pl-3 pt-4'>
-                        <button onClick = {statusHandle} className = {`w-20 h-14 text-white rounded-lg ${isOpen ? 'bg-green-600' : 'bg-red-600'}`}>
-                            {isOpen ? "ร้านเปิดอยู่" : "ร้านปิดอยู่"}
-                        </button>
                     </div>
 
                 </div>
@@ -117,8 +111,12 @@ function HomeRestaurant () {
 
             </div>
 
-            <div className = 'fixed bottom-0 z-50 h-16 min-w-full bg-white'>
-                
+            <div className = 'fixed bottom-0 z-50 h-20 min-w-full bg-white flex flex-row items-center justify-center'>
+                <div className = ''>
+                    <button onClick = {statusHandle} className = {`w-20 h-20 text-white rounded-full ${isOpen ? 'bg-green-600' : 'bg-red-600'}`}>
+                        {isOpen ? "ปิดร้าน" : "เปิดร้าน"}
+                    </button>
+                </div>
             </div>
 
         </div>

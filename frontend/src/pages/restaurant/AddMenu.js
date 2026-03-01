@@ -58,7 +58,7 @@ function AddMenu () {
     }
 
     return (
-        <div className = "min-h-screen flex flex-col bg-gray-100">
+        <div className = "min-h-screen flex flex-col bg-gray-100 font-notoSans">
 
             <div className = "pl-4 pt-10">
                 <button onClick = {backHandle} className = "w-20 h-10 flex items-center justify-center rounded-full hover:bg-slate-300 active:scale-[0.98]">
@@ -69,33 +69,45 @@ function AddMenu () {
                 </button>
             </div>
 
-            <div className = 'pl-16'>
+            <div className = 'flex justify-center'>
                 <p className = 'font-bold text-2xl'>
                     เพิ่มรูปภาพ
                 </p>
             </div>
 
             {preview && (
-                <div className="flex justify-center pt-4">
-                    <img src={preview} className="w-40 h-40 rounded-xl" alt="Preview" />
+                <div className="flex justify-center flex-col items-center pt-4">
+                    <label>
+                        <img src={preview} className="w-40 h-40 rounded-xl" alt="Preview" />
+                        <input className = 'pl-16'
+                        type = 'file'
+                        accept='image/*'
+                        onChange = { handleFileChange }
+                        hidden = 'hidden'
+                    />
+                    </label>
+                    
+                    <p className = 'underline text-gray-400 pt-2'>คลิ๊กที่รูปเพื่ออัพโหลดรูปใหม่</p>
                 </div>
             )}
 
-            <div className = 'flex flex-col items-center justify-center pt-4'>
-                <input className = 'pl-16'
-                    type = 'file'
-                    accept='image/*'
-                    onChange = { handleFileChange }
-                />
-            </div>
+            {!preview && (
+                <div className = 'flex flex-col items-center justify-center pt-4'>
+                    <input className = 'pl-16'
+                        type = 'file'
+                        accept='image/*'
+                        onChange = { handleFileChange }
+                    />
+                </div>
+            )}
 
-            <div className = 'pl-16 pt-5'>
+            <div className = 'pt-8 flex justify-center'>
                 <p className = 'text-2xl font-bold'>
                     ชื่อเมนู
                 </p>
             </div>
 
-            <div className = 'pl-14 pt-3'>
+            <div className = 'flex justify-center pt-3'>
                 <input className = 'border-2 h-14 w-64 placeholder:pl-2 rounded-xl text-lg pl-2'
                     placeholder = 'ระบุชื่อเมนู'
                     value = {menu}
@@ -103,13 +115,13 @@ function AddMenu () {
                 />
             </div>
             
-            <div className = 'pl-16 pt-5'>
+            <div className = 'flex justify-center pt-5'>
                 <p className = 'text-2xl font-bold'>
                     คำอธิบาย
                 </p>
             </div>
 
-            <div className = 'pl-14 pt-3'>
+            <div className = 'flex justify-center pt-3'>
                 <input className = 'border-2 h-14 w-64 placeholder:pl-2 rounded-xl text-lg pl-2'
                     placeholder = 'ส่วนประกอบ วิธีปรุง ฯลฯ'
                     value = {desc}
@@ -117,13 +129,13 @@ function AddMenu () {
                 />
             </div>
 
-            <div className = 'pl-16 pt-5'>
+            <div className = 'flex justify-center pt-5'>
                 <p className = 'text-2xl font-bold'>
                     ราคา
                 </p>
             </div>
 
-            <div className = 'pl-14 pt-3'>
+            <div className = 'flex justify-center pt-3'>
                 <input className = 'border-2 h-14 w-64 placeholder:pl-2 rounded-xl text-lg pl-2'
                     placeholder = 'ระบุราคา'
                     type = 'number'
