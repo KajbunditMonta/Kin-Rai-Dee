@@ -2,6 +2,8 @@ import wallet from '../../src/wallet.webp';
 import menu from '../../src/menu.webp';
 
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function HomeRestaurant () {
     
@@ -9,6 +11,58 @@ function HomeRestaurant () {
 
     const menuManagement = () => {
         navigate("/MenuManagement");
+    }
+
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const username = userData?.username;
+
+    const [isOpen, setIsopen] = useState(false);
+
+    useEffect(() => {
+
+        const fetchStatus = async () => {
+
+            try {
+
+                const res = await axios.get(`http://localhost:5000/api/RestaurantAuth/getShop/${username}`);
+                
+                if (res.data) {
+                    setIsopen(res.data.isOpen);
+                }
+
+            } catch (err) {
+                console.error("Fetch Status Error:", err);
+            }
+        };
+
+        if (username) {
+            fetchStatus();
+        }
+    }, [username]);
+
+    const statusHandle = async () => {
+
+        if(window.confirm("ต้องการเปลี่ยนสถานะร้านหรือไม่")) {
+
+            try {
+
+                const nextStatus = !isOpen;
+                
+                const res = await axios.put(`http://localhost:5000/api/RestaurantAuth/setStatus/${username}`, {
+                    username : username,
+                    isOpen : nextStatus
+                });
+
+                if (res.status === 200) {
+                    setIsopen(nextStatus);
+                }
+
+            } catch (err) {
+                console.error("Update Status Error:", err);
+                alert("ไม่สามารถเปลี่ยนสถานะร้านได้ในขณะนี้");
+            }
+
+        }
     }
 
     return (
@@ -19,11 +73,13 @@ function HomeRestaurant () {
             <div className = "bg-blue-300 w-80 h-32 rounded-3xl">
 
                 <div className = 'flex flex-row pt-6 pl-3'>
+
                     <img 
                         className = 'w-20'
                         src = {wallet}
                         alt = 'wallet'
                     />
+
                     <div className = 'flex flex-col'>
                         <div className = 'pl-4'>
                             <p className = 'text-white font-bold text-lg'>
@@ -34,6 +90,13 @@ function HomeRestaurant () {
                             </p>
                         </div>
                     </div>
+
+                    <div className = 'pl-3 pt-4'>
+                        <button onClick = {statusHandle} className = {`w-20 h-14 text-white rounded-lg ${isOpen ? 'bg-green-600' : 'bg-red-600'}`}>
+                            {isOpen ? "ร้านเปิดอยู่" : "ร้านปิดอยู่"}
+                        </button>
+                    </div>
+
                 </div>
 
                 <div className = 'pt-12 pl-5 flex flex-row items-center'>
