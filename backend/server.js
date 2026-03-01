@@ -16,7 +16,7 @@ const mongo_uri = process.env.MONGO_URI;
 
 app.use(express.json());
 app.use(cors());
-
+app.use('/uploads', express.static('uploads'));
 app.use('/api/CustomerAuth', CustomerAuth);
 app.use('/api/RestaurantAuth', RestaurantAuth);
 app.use('/api/ResetPassword', ResetPassword);
