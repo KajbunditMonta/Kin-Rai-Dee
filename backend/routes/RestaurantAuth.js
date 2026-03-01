@@ -130,4 +130,23 @@ router.get('/Menus/:username', async (req, res) => {
 
 });
 
+router.delete('/DeleteMenu/:id', async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+        const DeleteMenu = await Menu.findByIdAndDelete(id);
+        
+        if (!DeleteMenu) {
+            return res.status(404).json({ message : "ไม่พบข้อมูลที่ต้องการลบ" });
+        }
+
+        return res.status(200).json({ message: "ลบเมนูสำเร็จ" });
+
+    } catch (err) {
+        res.status(500).json({ message : "Backend Error : " + err.message });
+    }
+
+});
+
 export default router;

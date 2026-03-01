@@ -41,6 +41,27 @@ function MenuManagement () {
         if (username) fetchMenus(); 
     }, [username, fetchMenus]);
 
+    // delete
+
+    const deleteHandle = async (id) => {
+        
+        if (window.confirm("ต้องการลบเมนูนี้ใช่หรือไม่?")) {
+            try { 
+
+                await axios.delete(`http://localhost:5000/api/RestaurantAuth/DeleteMenu/${id}`);
+
+                setMenus(menus.filter(item => item._id !== id));
+
+                alert("ลบเมนูสำเร็จ");
+
+            } catch (err) {
+                console.error("delete error : ", err);
+                alert("เกิดข้อผิดพลาดในการลบ");
+            }
+        }
+
+    }
+
     return (
         <div className = "min-h-screen flex flex-col bg-gray-100">
 
@@ -62,9 +83,8 @@ function MenuManagement () {
                 
             </div>
 
-            {/* Show list */}
             { menus.map( (item) => (
-                <div className = 'bg-slate-300 rounded-xl m-5 h-32'>
+                <div className = 'bg-slate-300 rounded-xl m-5 h-32' key = {item._id}>
                     <div className = 'flex flex-row'>
                         <div className = 'w-20 h-20 m-5'>
                             <img className = 'rounded-xl w-20 h-20'
@@ -73,12 +93,20 @@ function MenuManagement () {
                             />
                         </div>
 
-                        <div className = 'pt-5'>
+                        <div className = 'pt-5 flex-1'>
                             <h2 className = 'font-bold text-xl'>{item.name}</h2>
                             <p>{item.desc}</p>
                             <p className = 'text-green-600 font-bold'>{item.price} บาท</p>
                         </div>
+
+                        <div className = 'm-5 pt-4'>
+                            <button onClick = { () => deleteHandle(item._id)} className = 'w-14 h-14 bg-red-600 rounded-2xl text-white hover:bg-red-800 active:scale-[0.98]'>
+                                ลบ
+                            </button>
+                        </div>
+
                     </div>
+
                 </div>
             ))}
             
