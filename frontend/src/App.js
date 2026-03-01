@@ -8,6 +8,7 @@ import HomeCustomer from './pages/customer/HomeCustomer.js';
 import HomeRestaurant from './pages/restaurant/HomeRestaurant.js';
 import MenuManagement from './pages/restaurant/MenuManagement.js';
 import AddMenu from './pages/restaurant/AddMenu.js';
+import EditMenu from './pages/restaurant/EditMenu.js';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -25,6 +26,7 @@ function App() {
         <Route path = "/HomeRestaurant" element = {<HomeRestaurant/>}/>
         <Route path = "/MenuManagement" element = {<MenuManagement/>}/>
         <Route path = "/AddMenu" element = {<AddMenu/>}/>
+        <Route path = "/EditMenu" element = {<EditMenu />}/>
       </Routes>
     </BrowserRouter>
   );

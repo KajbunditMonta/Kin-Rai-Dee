@@ -62,6 +62,12 @@ function MenuManagement () {
 
     }
 
+    // edit
+
+    const editMenuHandle = (item) => {
+        navigate('/EditMenu', { state : {menu : item} });
+    }
+
     return (
         <div className = "min-h-screen flex flex-col bg-gray-100">
 
@@ -84,7 +90,7 @@ function MenuManagement () {
             </div>
 
             { menus.map( (item) => (
-                <div className = 'bg-slate-300 rounded-xl m-5 h-32' key = {item._id}>
+                <div className = 'bg-slate-300 rounded-xl m-5 py-4' key = {item._id}>
                     <div className = 'flex flex-row'>
                         <div className = 'w-20 h-20 m-5'>
                             <img className = 'rounded-xl w-20 h-20'
@@ -94,12 +100,19 @@ function MenuManagement () {
                         </div>
 
                         <div className = 'pt-5 flex-1'>
-                            <h2 className = 'font-bold text-xl'>{item.name}</h2>
-                            <p>{item.desc}</p>
+                            <h2 className = 'font-bold text-lg'>{item.name}</h2>
+                            <p className = 'text-sm'>{item.desc}</p>
                             <p className = 'text-green-600 font-bold'>{item.price} บาท</p>
                         </div>
 
-                        <div className = 'm-5 pt-4'>
+                        <div className = 'flex items-end'>
+                            <label>
+                                <p className = 'underline'>แก้ไข</p>
+                                <button onClick = {() => editMenuHandle(item)}></button>
+                            </label>
+                        </div>
+
+                        <div className = 'flex items-end m-5'>
                             <button onClick = { () => deleteHandle(item._id)} className = 'w-14 h-14 bg-red-600 rounded-2xl text-white hover:bg-red-800 active:scale-[0.98]'>
                                 ลบ
                             </button>
