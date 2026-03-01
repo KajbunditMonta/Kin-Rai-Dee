@@ -1,6 +1,8 @@
 import backImg from '../../src/back.jpg';
 
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function MenuManagement () {
 
@@ -13,6 +15,25 @@ function MenuManagement () {
     const addMenu = () => {
         navigate("/AddMenu");
     }
+
+    const [menus, setMenus] = useState([]);
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const username = userData?.username;
+
+    const fetchMenus = async () => {
+
+        try {
+            const response = await axios.get(`http://localhost:5000/api/RestaurantAuth/Menus/${username}`);
+            setMenus(response.data);
+        } catch (err) {
+            console.error("Can not fetch menu Error : ", err);
+        }
+
+    }
+
+    useEffect( () => {
+        if (username) fetchMenus();
+    }, [username]);
 
     return (
         <div className = "min-h-screen flex flex-col bg-gray-100">
@@ -40,7 +61,7 @@ function MenuManagement () {
                     เพิ่มเมนู
                 </button>
             </div>
-
+            
             {/* Navbar */}
             <div className = 'fixed bottom-0 z-50 h-16 min-w-full bg-white'>
                 
