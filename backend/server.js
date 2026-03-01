@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import CustomerAuth from './routes/CustomerAuth.js';
 import RestaurantAuth from './routes/RestaurantAuth.js';
+import ResetPassword from './routes/ResetPassword.js';
 
 import { setServers } from "node:dns/promises";
 setServers(["1.1.1.1", "8.8.8.8"]);
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use('/api/CustomerAuth', CustomerAuth);
 app.use('/api/RestaurantAuth', RestaurantAuth);
+app.use('/api/ResetPassword', ResetPassword);
 
 mongoose.connect(mongo_uri)
     .then( () => console.log("MongoDB Connected..."))
