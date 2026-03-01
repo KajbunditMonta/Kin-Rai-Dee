@@ -46,23 +46,23 @@ function RegisterRestaurant () {
     };
 
     return (
-        <div className = "h-screen flex flex-col items-center bg-gray-100">
+        <div className = "h-screen flex flex-col items-center bg-gray-100 font-notoSans">
 
             <div className = "pt-16">
-                <h1 className = "font-bold text-3xl">
+                <h1 className = "font-bold text-3xl font-notoSansBold">
                     สมัครสมาชิก
                 </h1>
             </div>
 
             <div className = "pt-10 pr-48">
                 <label className = "text-sm">
-                    ชื่อผู้ใช้
+                    ชื่อร้าน
                 </label>
             </div>
 
             <div className = "pt-1">
                 <input className = "rounded-md border-2 min-h-10 min-w-60 text-center"
-                    placeholder = "ชื่อผู้ใช้"
+                    placeholder = "ชื่อร้าน"
                     value = {username}
                     onChange = { (e) => setUsername(e.target.value)}
                 />

@@ -14,10 +14,10 @@ function RegisterRole () {
     }
 
     return (
-        <div className = "h-screen flex flex-col items-center bg-gray-100">
+        <div className = "h-screen flex flex-col items-center bg-gray-100 font-notoSans">
 
             <div className = "pt-16">
-                <h1 className = "font-bold text-2xl">
+                <h1 className = "font-bold text-2xl font-notoSansBold">
                     คุณเป็นลูกค้าหรือร้านค้า?
                 </h1>
             </div>

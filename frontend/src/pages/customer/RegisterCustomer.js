@@ -46,10 +46,10 @@ function RegisterCustomer () {
     };
 
     return (
-        <div className = "h-screen flex flex-col items-center bg-gray-100">
+        <div className = "h-screen flex flex-col items-center bg-gray-100 font-notoSans">
 
             <div className = "pt-16">
-                <h1 className = "font-bold text-3xl">
+                <h1 className = "font-bold text-3xl font-notoSansBold">
                     สมัครสมาชิก
                 </h1>
             </div>

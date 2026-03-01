@@ -69,7 +69,7 @@ function MenuManagement () {
     }
 
     return (
-        <div className = "min-h-screen flex flex-col bg-gray-100">
+        <div className = "min-h-screen flex flex-col bg-gray-100 font-notoSans">
 
             <div className = "flex flex-col pt-10">
                 <div className = "pl-4">
