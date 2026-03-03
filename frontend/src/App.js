@@ -11,6 +11,7 @@ import AddMenu from './pages/restaurant/AddMenu.js';
 import OrderCustomer from './pages/customer/OrderCustomer.js';
 import RestaurantMenu from './pages/customer/RestaurantMenu.js';
 import EditMenu from './pages/restaurant/EditMenu.js';
+import Orderfood from './pages/customer/Orderfood.js';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -31,6 +32,7 @@ function App() {
         <Route path = "/OrderCustomer" element = {<OrderCustomer/>}/>
         <Route path = "/RestaurantMenu/:id" element = {<RestaurantMenu/>}/>
         <Route path = "/EditMenu" element = {<EditMenu />}/>
+        <Route path="/order/:id/:foodId" element={<Orderfood />} />
       </Routes>
     </BrowserRouter>
   );
