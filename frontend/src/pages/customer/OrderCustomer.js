@@ -12,7 +12,7 @@ function HomeCustomer () {
                 </Link>
                 <Link to="/OrderHistory" className="flex flex-col items-center text-gray-600 hover:text-blue-500 focus:text-blue-600">
                     <span className="text-2xl">📜</span>
-                    <span className="text-xs font-medium">รายการ</span>
+                    <span className="text-xs font-medium">ออเดอร์</span>
                 </Link>
                 <Link to="/Profile" className="flex flex-col items-center text-gray-600 hover:text-blue-500 focus:text-blue-600">
                     <span className="text-2xl">👤</span>

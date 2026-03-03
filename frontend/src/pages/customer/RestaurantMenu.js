@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom"; 
+import backImg from '../../src/back.jpg'
 import axios from "axios";
 
 function RestaurantMenu() {
@@ -27,6 +28,15 @@ function RestaurantMenu() {
 
     if (loading) return <div className="text-center mt-20">กำลังโหลดเมนู</div>;
 
+    const handleOrderfood = (food) => {
+        navigate(`/order/${id}/${food._id}`, {
+            state: {
+                food,
+                shop,
+            }
+        });
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 pb-20">
             <div className="relative h-48 bg-gray-800">
@@ -36,7 +46,10 @@ function RestaurantMenu() {
                     className="w-full h-full object-cover opacity-60"
                 />
                 <button onClick={() => navigate(-1)} className="absolute top-4 left-4 bg-white p-2 rounded-full shadow-lg">
-                    ⬅️
+                    <img className = "w-9" 
+                        src = {backImg}
+                        alt = 'backIcon'
+                    />
                 </button>
 
                 <div className="absolute bottom-4 left-4 text-white">
@@ -67,9 +80,9 @@ function RestaurantMenu() {
                                     <div className="flex justify-between items-center mt-1">
                                         <span className="text-orange-500 font-bold text-lg">{food.price}.-</span>
                                         <button 
-                                            className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm shadow hover:bg-blue-600 active:scale-95"
-                                        >
-                                            + ใส่ตะกร้า
+                                            onClick={() => handleOrderfood(food)}
+                                            className="bg-blue-500 text-white px-3 py-1 rounded-lg text-sm shadow hover:bg-blue-600 active:scale-95">
+                                            +
                                         </button>
                                     </div>
                                 </div>
