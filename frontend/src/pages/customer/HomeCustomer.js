@@ -44,7 +44,7 @@ function HomeCustomer () {
                         <div className="p-4 flex flex-col w-full">
                             <h2 className="text-xl font-bold text-gray-800">{shop.restaurantName || shop.username}</h2>
                             <p className="text-gray-500 text-sm mt-1">
-                                {shop.isOpen ? "เปิดอยู่" : "ปิดชั่วคราว"}
+                                {shop.isOpen ? "🟢 เปิดอยู่" : "🔴 ปิดชั่วคราว"}
                             </p>
                         </div>
                     </div>

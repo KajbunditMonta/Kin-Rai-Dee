@@ -53,7 +53,7 @@ function Cartorder() {
             });
             localStorage.removeItem(`cart_${id}`);
             alert("สั่งอาหารสำเร็จ!");
-            navigate(`/HomeCustomer`);
+            navigate(`/Payment/${id}`);
         } catch (err) {
             console.error("Order error:", err);
             alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
