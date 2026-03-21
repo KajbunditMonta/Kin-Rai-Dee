@@ -116,6 +116,76 @@ function AcceptOrder () {
 
     }   
 
+    const derivred = async (OrderId) => {
+        
+        const { value: file, isDismissed } = await Swal.fire({
+            title: 'ยืนยันการจัดส่ง',
+            text: 'กรุณาถ่ายรูปหรืออัพโหลดรูปภาพยืนยันการส่งอาหาร',
+            input: 'file',
+            inputAttributes: {
+                'accept': 'image/*',
+                'aria-label': 'อัพโหลดรูปภาพยืนยันการส่ง'
+            },
+            didOpen: () => {
+                const input = Swal.getInput();
+                input.onchange = () => {
+                    const file = input.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            Swal.getHtmlContainer().querySelector('#preview-img')?.remove();
+                            const img = document.createElement('img');
+                            img.id = 'preview-img';
+                            img.src = e.target.result;
+                            img.style.width = '100%';
+                            img.style.marginTop = '15px';
+                            img.style.borderRadius = '10px';
+                            Swal.getHtmlContainer().appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+            },
+            showCancelButton: true,
+            confirmButtonText: 'ตกลง',
+            cancelButtonText: 'ยกเลิก',
+            confirmButtonColor: '#22c55e'
+        });
+
+        if (isDismissed) return;
+
+        if (file) {
+
+            const fromData = new FormData();
+            fromData.append('derveredPhoto', file);
+
+            try {
+
+                const res = await axios.put(`http://localhost:5000/api/OrderMenu/sendDeriveredPhoto/${OrderId}`,
+                    fromData,
+                    { headers : { 'content-Type' : 'nultipart/form-data' } }
+                )
+
+                if (res.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'จัดส่งสำเร็จ!',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+
+            } catch (err) {
+                console.error("Upload derivered photo order Error:", err);
+                alert("ไม่สามารถอัพโหลดหลักฐานการส่งได้ในขนะนี้");
+            }
+
+        } else {
+            alert("โปรดอัพโหลดรูป");
+        }
+
+    }
+
     return(
         <div className="min-h-screen w-full flex flex-col items-center bg-gray-100 font-notoSans pb-40">
             
@@ -167,7 +237,7 @@ function AcceptOrder () {
 
                                     <div className='pl-3'>
                                         <button className='bg-green-500 text-white w-20 h-10 rounded-xl active:scale-[0.98] hover:bg-green-700'
-                                            
+                                            onClick={() => derivred(item._id)}
                                         >
                                             จัดส่ง
                                         </button>
@@ -246,7 +316,7 @@ function AcceptOrder () {
                     </div>
                 ) : (
                     order.map((item, index) => ( item.OrderStatus === "success" && (
-                            <div key={index} className='bg-gray-300 rounded-xl mb-4 shadow-md p-4'>
+                            <div key={index} className='bg-green-200 rounded-xl mb-4 shadow-md p-4'>
                                 <h1 className='font-notoSansBold text-blue-700 text-lg mb-2'> 👤 {item.customerName}</h1>
 
                                 {item.items.map((food, idx) => (
@@ -265,11 +335,6 @@ function AcceptOrder () {
 
                                 <div className='flex justify-center pt-4 pb-2'>
                                     <p className='font-notoSansBold text-sm text-gray-700'>📍 ส่งที่ : {item.address}</p>
-                                </div>
-
-                                <div className='flex justify-center items-center pt-4'>
-                                    <p className='font-bold'>ราคารวม :</p>
-                                    <span className='pl-2 text-green-700 font-notoSansBold text-2xl'>{item.totalPrice}</span>
                                 </div>
 
                             </div>
