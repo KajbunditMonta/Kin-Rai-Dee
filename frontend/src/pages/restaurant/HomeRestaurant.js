@@ -15,7 +15,7 @@ function HomeRestaurant () {
 
     const userData = JSON.parse(localStorage.getItem('user'));
     const username = userData?.username;
-    const restaurantId = userData?._id
+    const restaurantId = userData?._id;
 
     const [isOpen, setIsopen] = useState(false);
 
@@ -94,44 +94,27 @@ function HomeRestaurant () {
         }
     }
 
-    const OrderStatusHandle = async (id, status) => {
+    const rejectHandle = async (orderId) => {
 
-        let showText;
+        const reason = window.prompt("เหตุผลที่ปฏิเสธคำสั่งซื้อนี้")
+        
+        if (reason === null) return; 
+        if (reason.trim() === "") return alert("กรุณาระบุเหตุผล");
 
-        if (status === "done") {
-            showText = "จัดส่งสำเร็จ";
+        try {
+            
+            const res = await axios.put(`http://localhost:5000/api/OrderMenu/rejectOrder/${orderId}`, {
+                reason : reason
+            });
+
+            if (res.status === 200) {
+            alert("ปฏิเสธคำสั่งซื้อเรียบร้อย");
+            window.location.reload();
         }
 
-        if (status === "done" && window.confirm(`ต้องการเปลี่ยนสถานะคำสั่งซื้อเป็น "${showText} " หรือไม่`)) {
-            try {
-
-                const res = await axios.put(`http://localhost:5000/api/OrderMenu/setOrderStatus/${id}`, {
-                    status : status
-                });
-
-                if (res.status === 200) {
-                    alert("เปลี่ยนสถานะเสร็จสิ้น");
-                }
-
-            } catch (err) {
-                console.error("Update Status Error:", err);
-                alert("ไม่สามารถเปลี่ยนสถานะออเดอร์ได้ในขณะนี้");
-            }
-        } 
-
-        let reason = "";
-
-        if (status === "denied") {
-
-            reason = window.prompt("เหตุผลที่ปฏิเสธคำสั่งซื้อ");
-
-            if (reason === "") {
-                alert("โปรดให้เหตุผลการยกเลิกคำสั่งซื้อ");
-                return;
-            }
-
-
-
+        } catch (err) {
+            console.error("Reject order Error:", err);
+            alert("ไม่สามารถปฏิเสธคำสั่งซื้อได้ในขนะนี้")
         }
 
     }
@@ -194,17 +177,12 @@ function HomeRestaurant () {
                             </div>
 
                             <div className='flex justify-center flex-row pt-4'>
-                                <div className='pr-2'>
-                                <button className='bg-red-500 text-center w-20 h-10 rounded-xl text-white hover:bg-red-700 active:scale-[0.98]'
-                                    onClick={ () => OrderStatusHandle(item._id, "denied")}>
-                                        ปฎิเสธ                                
-                                </button>
-                                </div>
-                                <div className='pl-2'>
-                                <button className='bg-green-500 text-center w-20 h-10 rounded-xl text-white hover:bg-green-700 active:scale-[0.98]'
-                                    onClick={ () => OrderStatusHandle(item._id, "done")}>
-                                        จัดส่งสำเร็จ                               
-                                </button>
+                                <div className=''>
+                                    <button className='bg-red-500 text-white w-20 h-10 rounded-xl active:scale-[0.98] hover:bg-red-700'
+                                        onClick={() => rejectHandle(item._id)}
+                                    >
+                                        ปฏิเสธ
+                                    </button>
                                 </div>
                             </div>
 
