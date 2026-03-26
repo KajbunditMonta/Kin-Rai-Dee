@@ -18,6 +18,14 @@ function NewPassword () {
     }, [email, navigate]);
 
     const Submit = async () => {
+        if (!newpassword || !confirmpassword) {
+            alert("กรุณากรอกข้อมูลให้ครบถ้วนทุกช่อง");
+            return;
+        }
+        if (newpassword.length < 8) {
+            alert("รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร");
+            return;
+        }
         if (newpassword !== confirmpassword) return alert("รหัสผ่านไม่ตรงกัน");
         try {
             const response = await axios.post("http://localhost:5000/api/ResetPassword/resetpassword", {
