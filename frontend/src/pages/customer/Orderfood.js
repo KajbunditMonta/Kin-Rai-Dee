@@ -60,7 +60,7 @@ function Orderfood() {
             <div className="p-4 space-y-4 pb-32">
                 <div className="bg-white rounded-2xl shadow-md overflow-hidden">
                     <img
-                        src={food.image ? `http://localhost:5000${food.image}` : "https://via.placeholder.com/400x200"}
+                        src={food.image ? `https://kinraidee-backend.onrender.com${food.image}` : "https://via.placeholder.com/400x200"}
                         alt={food.name}
                         className="w-full h-52 object-cover"
                     />

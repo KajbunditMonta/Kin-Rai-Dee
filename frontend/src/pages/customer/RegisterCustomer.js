@@ -30,7 +30,7 @@ function RegisterCustomer () {
 
         try {
 
-            const response = await axios.post("http://localhost:5000/api/CustomerAuth/RegisterCustomer", {
+            const response = await axios.post("https://kinraidee-backend.onrender.com/api/CustomerAuth/RegisterCustomer", {
                 username,
                 email,
                 password

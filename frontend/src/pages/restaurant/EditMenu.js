@@ -49,7 +49,7 @@ function EditMenu () {
 
             try {
 
-                const res = await axios.put(`http://localhost:5000/api/RestaurantAuth/UpdateMenu/${menu._id}`, formData, { headers : { 'Content-Type' : 'multipart/form-data' }});
+                const res = await axios.put(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/UpdateMenu/${menu._id}`, formData, { headers : { 'Content-Type' : 'multipart/form-data' }});
 
                 if (res.status === 200) {
                     alert("แก้ไขเมนูสำเร็จ!");
@@ -93,7 +93,7 @@ function EditMenu () {
 
                         <img
                             className = 'w-32 h-32 rounded-lg'
-                            src = {preview ? preview : `http://localhost:5000${menu.image}`}
+                            src = {preview ? preview : `https://kinraidee-backend.onrender.com${menu.image}`}
                             alt = "Preview"
                         />
 

@@ -20,7 +20,7 @@ function HomeCustomer () {
 
             try {
 
-                const res = await axios.get(`http://localhost:5000/api/OrderMenu/getOrderCustomer/${customerUsername}`);
+                const res = await axios.get(`https://kinraidee-backend.onrender.com/api/OrderMenu/getOrderCustomer/${customerUsername}`);
                 
                 if (res.data) {
                     setOrder(res.data);
@@ -56,7 +56,7 @@ function HomeCustomer () {
             });
         }
 
-        const imgUrl = `http://localhost:5000${DeriveredPT}`;
+        const imgUrl = `https://kinraidee-backend.onrender.com${DeriveredPT}`;
 
         Swal.fire({
             title : "หลักฐานการจัดส่ง",

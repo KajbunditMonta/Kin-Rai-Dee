@@ -51,7 +51,7 @@ function Cartorder() {
         const User = JSON.parse(localStorage.getItem('user'));
         const customerName = User ? User.username : "ลูกค้า";
         try {
-            await axios.post(`http://localhost:5000/api/OrderMenu/create`, {
+            await axios.post(`https://kinraidee-backend.onrender.com/api/OrderMenu/create`, {
                 restaurantId: id,
                 customerName: customerName,
                 items: cart,
@@ -95,7 +95,7 @@ function Cartorder() {
                             <div key={item.foodId} className="bg-white rounded-2xl p-3 flex items-center gap-3">
                                 <div className="w-16 h-16 flex-shrink-0 rounded-xl overflow-hidden bg-gray-200">
                                     <img
-                                        src={item.foodImage ? `http://localhost:5000${item.foodImage}` : "https://via.placeholder.com/150"}
+                                        src={item.foodImage ? `https://kinraidee-backend.onrender.com${item.foodImage}` : "https://via.placeholder.com/150"}
                                         alt={item.foodName}
                                         className="w-full h-full object-cover"
                                     />

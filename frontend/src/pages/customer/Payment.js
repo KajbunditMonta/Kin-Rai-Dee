@@ -13,7 +13,7 @@ function Payment() {
     useEffect(() => {
         const fetchImage = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/RestaurantAuth/getMenu/${ShopId}`);
+                const res = await axios.get(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/getMenu/${ShopId}`);
                 setPP(res.data.shopData.imagePP); 
             } catch (err) {
                 console.error("Error:", err.response?.data || err.message);
@@ -41,7 +41,7 @@ function Payment() {
 
         try {
 
-            const response = await axios.put(`http://localhost:5000/api/OrderMenu/uploadSlip/${OrderId}`, formData, {headers : { 'Content-Type' : 'multipart/form-data' }});
+            const response = await axios.put(`https://kinraidee-backend.onrender.com/api/OrderMenu/uploadSlip/${OrderId}`, formData, {headers : { 'Content-Type' : 'multipart/form-data' }});
 
             if (response.status === 200) {
                 Swal.fire({
@@ -89,7 +89,7 @@ function Payment() {
                 {PP ? (
                     <div className="w-100 h-80">
                         <img
-                            src={`http://localhost:5000${PP}`}
+                            src={`https://kinraidee-backend.onrender.com${PP}`}
                             alt="Fetched Images"
                             className="w-full h-full object-cover"
                         />

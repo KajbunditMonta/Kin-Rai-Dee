@@ -10,7 +10,7 @@ function HomeCustomer () {
     useEffect(() => {
         const fetchRestaurant = async () => {
             try {
-                const res = await axios.get("http://localhost:5000/api/RestaurantAuth/getAll");
+                const res = await axios.get("https://kinraidee-backend.onrender.com/api/RestaurantAuth/getAll");
                 setRestaurant(res.data);
             } catch (err) {
                 console.error("Error", err);
@@ -48,7 +48,7 @@ function HomeCustomer () {
                     >
                         <div className="w-32 h-32 bg-gray-200 flex-shrink-0">
                              <img 
-                                src={shop.image ? `http://localhost:5000${shop.image}` : "https://via.placeholder.com/150"}
+                                src={shop.image ? `https://kinraidee-backend.onrender.com${shop.image}` : "https://via.placeholder.com/150"}
                                 alt={shop.restaurantName} 
                                 className="w-full h-full object-cover"
                             />

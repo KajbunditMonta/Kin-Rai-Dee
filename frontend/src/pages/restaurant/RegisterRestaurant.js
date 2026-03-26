@@ -60,7 +60,7 @@ function RegisterRestaurant () {
 
         try {
 
-            const response = await axios.post("http://localhost:5000/api/RestaurantAuth/RegisterRestaurant", formData, {
+            const response = await axios.post("https://kinraidee-backend.onrender.com/api/RestaurantAuth/RegisterRestaurant", formData, {
                 headers : { "Content-Type" : "multipart/formData" }
             })
 

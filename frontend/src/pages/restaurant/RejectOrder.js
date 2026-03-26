@@ -20,7 +20,7 @@ function RejectOrder () {
 
             try {
 
-                const res = await axios.get(`http://localhost:5000/api/RestaurantAuth/getShop/${username}`);
+                const res = await axios.get(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/getShop/${username}`);
                 
                 if (res.data) {
                     setIsopen(res.data.isOpen);
@@ -44,7 +44,7 @@ function RejectOrder () {
 
                 const nextStatus = !isOpen;
                 
-                const res = await axios.put(`http://localhost:5000/api/RestaurantAuth/setStatus/${username}`, {
+                const res = await axios.put(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/setStatus/${username}`, {
                     username : username,
                     isOpen : nextStatus
                 });
@@ -68,7 +68,7 @@ function RejectOrder () {
 
             try {
 
-                const res = await axios.get(`http://localhost:5000/api/OrderMenu/getOrder/${restaurantId}`);
+                const res = await axios.get(`https://kinraidee-backend.onrender.com/api/OrderMenu/getOrder/${restaurantId}`);
                 
                 if (res.data) {
                     setOrder(res.data);

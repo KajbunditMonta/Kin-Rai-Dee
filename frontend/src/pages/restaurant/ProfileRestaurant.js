@@ -20,7 +20,7 @@ function ProfileRestaurant () {
 
             try {
 
-                const res = await axios.get(`http://localhost:5000/api/RestaurantAuth/getShop/${username}`);
+                const res = await axios.get(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/getShop/${username}`);
                 
                 if (res.data) {
                     setIsopen(res.data.isOpen);
@@ -44,7 +44,7 @@ function ProfileRestaurant () {
 
                 const nextStatus = !isOpen;
                 
-                const res = await axios.put(`http://localhost:5000/api/RestaurantAuth/setStatus/${username}`, {
+                const res = await axios.put(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/setStatus/${username}`, {
                     username : username,
                     isOpen : nextStatus
                 });
@@ -69,7 +69,7 @@ function ProfileRestaurant () {
 
             try {
 
-                const res = await axios.get(`http://localhost:5000/api/RestaurantAuth/getShop/${username}`);
+                const res = await axios.get(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/getShop/${username}`);
 
                 if (res.data) {
                     setShop(res.data);
@@ -97,7 +97,7 @@ function ProfileRestaurant () {
                     <div className='w-40 h-40 rounded-full overflow-hidden shadow-lg border-4 border-white'>
                         <img 
                             className='w-full h-full object-cover'
-                            src={`http://localhost:5000${shop.image}`}
+                            src={`https://kinraidee-backend.onrender.com${shop.image}`}
                             alt='shop profile'
                         />
                     </div>
@@ -130,7 +130,7 @@ function ProfileRestaurant () {
                     <div className='pt-4'>
                         <div className=''>
                             <img className='w-44 h-56 shadow-lg object-cover'
-                                src={`http://localhost:5000${shop.imagePP}`}
+                                src={`https://kinraidee-backend.onrender.com${shop.imagePP}`}
                                 alt='qr promtpay'
                             />
                         </div>

@@ -28,7 +28,7 @@ function NewPassword () {
         }
         if (newpassword !== confirmpassword) return alert("รหัสผ่านไม่ตรงกัน");
         try {
-            const response = await axios.post("http://localhost:5000/api/ResetPassword/resetpassword", {
+            const response = await axios.post("https://kinraidee-backend.onrender.com/api/ResetPassword/resetpassword", {
                 email: email,
                 resetnumber: resetnumber,
                 newpassword: newpassword

@@ -28,7 +28,7 @@ function MenuManagement () {
         
         try {
 
-            const response = await axios.get(`http://localhost:5000/api/RestaurantAuth/Menus/${username}`);
+            const response = await axios.get(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/Menus/${username}`);
             setMenus(response.data);
 
         } catch (err) {
@@ -48,7 +48,7 @@ function MenuManagement () {
         if (window.confirm("ต้องการลบเมนูนี้ใช่หรือไม่?")) {
             try { 
 
-                await axios.delete(`http://localhost:5000/api/RestaurantAuth/DeleteMenu/${id}`);
+                await axios.delete(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/DeleteMenu/${id}`);
 
                 setMenus(menus.filter(item => item._id !== id));
 
@@ -94,7 +94,7 @@ function MenuManagement () {
                     <div className = 'flex flex-row'>
                         <div className = 'w-20 h-20 m-5'>
                             <img className = 'rounded-xl w-20 h-20'
-                                src = {`http://localhost:5000${item.image}`}
+                                src = {`https://kinraidee-backend.onrender.com${item.image}`}
                                 alt = {item.image}
                             />
                         </div>

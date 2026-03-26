@@ -45,7 +45,7 @@ function AddMenu () {
 
         try {
 
-            const response = await axios.post("http://localhost:5000/api/RestaurantAuth/AddMenu", formData, {
+            const response = await axios.post("https://kinraidee-backend.onrender.com/api/RestaurantAuth/AddMenu", formData, {
                 headers : { "Content-Type" : "multipart/from-data"}
             });
             alert(response.data.message);

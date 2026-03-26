@@ -14,7 +14,7 @@ function RestaurantMenu() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/RestaurantAuth/getMenu/${id}`);
+                const res = await axios.get(`https://kinraidee-backend.onrender.com/api/RestaurantAuth/getMenu/${id}`);
                 setShop(res.data.shopData);
                 setMenus(res.data.menuData);
             } catch (err) {
@@ -54,7 +54,7 @@ function RestaurantMenu() {
         <div className="min-h-screen bg-gray-50 pb-20">
             <div className="relative h-48 bg-gray-800">
                 <img 
-                    src={shop?.image ? `http://localhost:5000${shop.image}` : "https://via.placeholder.com/800x300"} 
+                    src={shop?.image ? `https://kinraidee-backend.onrender.com${shop.image}` : "https://via.placeholder.com/800x300"} 
                     alt="Cover" 
                     className="w-full h-full object-cover opacity-60"
                 />
@@ -79,7 +79,7 @@ function RestaurantMenu() {
                             <div key={food._id} className="bg-white p-3 rounded-xl shadow-md flex flex-row h-28">
                                 <div className="w-24 h-24 flex-shrink-0 bg-gray-200 rounded-lg overflow-hidden">
                                     <img 
-                                        src={food.image ? `http://localhost:5000${food.image}` : "https://via.placeholder.com/150"} 
+                                        src={food.image ? `https://kinraidee-backend.onrender.com${food.image}` : "https://via.placeholder.com/150"} 
                                         alt={food.name} 
                                         className="w-full h-full object-cover"
                                     />

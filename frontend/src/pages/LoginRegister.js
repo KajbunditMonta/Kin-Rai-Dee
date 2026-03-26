@@ -30,9 +30,9 @@ function LoginRegister () {
         let api_url;
 
         if (role === 'customer') {
-            api_url = "http://localhost:5000/api/CustomerAuth/LoginCustomer";
+            api_url = "https://kinraidee-backend.onrender.com/api/CustomerAuth/LoginCustomer";
         } else {
-            api_url = "http://localhost:5000/api/RestaurantAuth/LoginRestaurant";
+            api_url = "https://kinraidee-backend.onrender.com/api/RestaurantAuth/LoginRestaurant";
         }
 
         try {
