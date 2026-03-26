@@ -11,7 +11,6 @@ function ProfileRestaurant () {
 
     const userData = JSON.parse(localStorage.getItem('user'));
     const username = userData?.username;
-    // const restaurantId = userData?._id;
 
     const [isOpen, setIsopen] = useState(false);
 
