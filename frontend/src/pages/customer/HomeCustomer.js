@@ -18,8 +18,12 @@ function HomeCustomer () {
         fetchRestaurant();
     }, []);
 
-    const handleRestaurant = (id) => {
-        navigate(`/RestaurantMenu/${id}`);
+    const handleRestaurant = (id, isopen) => {
+        if (isopen) {
+            navigate(`/RestaurantMenu/${id}`);
+        } else {
+            alert("ขออภัยร้านนี้ปิดให้บริการชั่วคราว"); 
+        }
     }
     return (    
         <div className = "min-h-screen flex flex-col items-center bg-gray-100 pb-20">
@@ -31,8 +35,9 @@ function HomeCustomer () {
                 {restaurant.map((shop) => (
                     <div 
                         key={shop._id} 
-                        onClick={() => handleRestaurant(shop._id)}
-                        className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300 flex flex-row h-32"
+                        onClick={() => handleRestaurant(shop._id, shop.isOpen)}
+                        className={`bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300 flex flex-row h-32
+                            ${shop.isOpen ? "cursor-pointer hover:shadow-xl" : "opacity-60 grayscale"}`}
                     >
                         <div className="w-32 h-32 bg-gray-200 flex-shrink-0">
                              <img 
@@ -63,11 +68,6 @@ function HomeCustomer () {
                     <span className="text-2xl">📜</span>
                     <span className="text-xs font-medium">ออเดอร์</span>
                 </Link>
-                <Link to="/LoginRegister" className="flex flex-col items-center text-gray-600 hover:text-blue-500 focus:text-blue-600">
-                    <span className="text-2xl">👤</span>
-                    <span className="text-xs font-medium">ฉัน</span>
-                </Link>
-
             </div>
 
         </div>

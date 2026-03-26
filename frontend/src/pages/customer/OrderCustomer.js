@@ -16,7 +16,7 @@ function HomeCustomer () {
     const [order, setOrder] = useState([]);
     useEffect( () => {
 
-        const fetchOrder = async () => {
+        const fetchOrder = async () => {    
 
             try {
 
@@ -265,15 +265,10 @@ function HomeCustomer () {
                     <span className="text-2xl">🏠</span>
                     <span className="text-xs font-medium">หน้าหลัก</span>
                 </Link>
-                <Link to="/OrderHistory" className="flex flex-col items-center text-gray-600 hover:text-blue-500 focus:text-blue-600">
+                <Link to="/OrderCustomer" className="flex flex-col items-center text-gray-600 hover:text-blue-500 focus:text-blue-600">
                     <span className="text-2xl">📜</span>
                     <span className="text-xs font-medium">ออเดอร์</span>
                 </Link>
-                <Link to="/Profile" className="flex flex-col items-center text-gray-600 hover:text-blue-500 focus:text-blue-600">
-                    <span className="text-2xl">👤</span>
-                    <span className="text-xs font-medium">ฉัน</span>
-                </Link>
-
             </div>
             <div className="pt-20"></div>
         </div>
